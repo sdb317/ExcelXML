@@ -1,7 +1,7 @@
 # ExcelXML
 A C++ dll to import/export named ranges to/from Excel from/to XML
 
-Use the dll fromm VBA to transfer data back & forth between Excel and an XML document.
+Use the dll from VBA to transfer data back & forth between Excel and an XML document.
 
 For example, an Excel table like this...
 
@@ -47,7 +47,7 @@ End Sub
 
 A log file is created in %localappdata%/Temp with the name ExcelXML_<PID>.log. Also errors can be retrieved in VBA by using `GetLastErrorMessage()`.
 
-There are self-explanatory options that can be set to tru or false (default):
+There are self-explanatory options that can be set to true or false (default):
 
 ```
 IncludeErrorValues=false; // Otherwise ommitted
