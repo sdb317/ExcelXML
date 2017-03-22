@@ -195,8 +195,6 @@ bool CExcelArchiveDocument::ExportRange(CNode VersionNode,ExcelAutomation::_Work
                                 long ColumnOffset=pRange->Column;
                                 for (long i=0;i<RowCount;i++)
                                     {
-                                    CNode RowNode=RangeNode.AppendChild(L"Row");
-                                    RowNode.SetAttribute(L"Row",_bstr_t((long)i));
                                     for (long j=0;j<ColumnCount;j++)
                                         {
                                         try
@@ -207,48 +205,49 @@ bool CExcelArchiveDocument::ExportRange(CNode VersionNode,ExcelAutomation::_Work
                                                 {
                                                 if ((Value.vt!=VT_ERROR)||IncludeErrorValues) // Not an Excel '#' error or include them anyway
 			                                        {
-                                                    CNode ColumnNode=RowNode.AppendChild(L"Column");
-                                                    ColumnNode.SetAttribute(L"Column",_bstr_t((long)j));
-                                                    ColumnNode.SetAttribute(L"Address",pCell->Address[0L][0L][ExcelAutomation::xlA1][0L][0L]);
+													CNode CellNode=RangeNode.AppendChild(L"Cell");
+													CellNode.SetAttribute(L"Row",_bstr_t((long)i));
+													CellNode.SetAttribute(L"Column",_bstr_t((long)j));
+													CellNode.SetAttribute(L"Address",pCell->Address[0L][0L][ExcelAutomation::xlA1][0L][0L]);
                                                     if (Value!=_variant_t()) // Not empty
                                                         {
                                                         if (Value.vt!=VT_ERROR) // Not an Excel '#' error
 			                                                {
-                                                            ColumnNode.SetAttribute(L"Value",(_bstr_t)Value); // .replace(/'/g,'&quot;').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                                                            CellNode.SetAttribute(L"Value",(_bstr_t)Value); // .replace(/'/g,'&quot;').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
                                                             if (IsVariantString(Value))
                                                                 {
-                                                                ColumnNode.SetAttribute(L"Type",L"Text");
+                                                                CellNode.SetAttribute(L"Type",L"Text");
                                                                 }
                                                             else
                                                                 {
-                                                                ColumnNode.SetAttribute(L"Type",L"Number");
+                                                                CellNode.SetAttribute(L"Type",L"Number");
                                                                 }
 			                                                }
                                                         else
 			                                                {
-                                                            ColumnNode.SetAttribute(L"Type",L"Error");
+                                                            CellNode.SetAttribute(L"Type",L"Error");
                                                             switch (LOWORD(((*(tagVARIANT*)(&Value))).scode))
                                                                 {
                                                                 case ExcelAutomation::xlErrDiv0:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#DIV/0");
+                                                                    CellNode.SetAttribute(L"Value",L"#DIV/0");
                                                                     break;
                                                                 case ExcelAutomation::xlErrNA:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#N/A");
+                                                                    CellNode.SetAttribute(L"Value",L"#N/A");
                                                                     break;
                                                                 case ExcelAutomation::xlErrName:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#NAME");
+                                                                    CellNode.SetAttribute(L"Value",L"#NAME");
                                                                     break;
                                                                 case ExcelAutomation::xlErrNull:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#NULL");
+                                                                    CellNode.SetAttribute(L"Value",L"#NULL");
                                                                     break;
                                                                 case ExcelAutomation::xlErrNum:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#NUM");
+                                                                    CellNode.SetAttribute(L"Value",L"#NUM");
                                                                     break;
                                                                 case ExcelAutomation::xlErrRef:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#REF");
+                                                                    CellNode.SetAttribute(L"Value",L"#REF");
                                                                     break;
                                                                 case ExcelAutomation::xlErrValue:
-                                                                    ColumnNode.SetAttribute(L"Value",L"#VALUE");
+                                                                    CellNode.SetAttribute(L"Value",L"#VALUE");
                                                                     break;
                                                                 default:;
                                                                 }
