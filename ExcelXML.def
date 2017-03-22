@@ -1,0 +1,10 @@
+LIBRARY   ExcelXML  
+EXPORTS  
+   GetLastErrorMessage      @1
+   WorkbookToDocument       @2
+   WorksheetToDocument      @3
+   RangeToDocument          @4
+   DocumentToRange          @5
+   SetIncludeErrorValues    @6
+   SetIncludeEmptyValues    @7
+   SetConstrainedByTarget   @8
