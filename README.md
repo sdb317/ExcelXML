@@ -61,3 +61,6 @@ Caveats
 - The pre-compiled header `stdafx.h` may need to be changed depending on the Excel version (currently targets 2016)
 
 - The dll export mechanism may need to change depending on whether Excel is 32-bit or 64-bit ([more details...](https://msdn.microsoft.com/en-us/library/office/bb687861.aspx))
+
+- `ROT.cpp` does some pretty 'black belt' hacking to make sure the automation interface is for the right Excel instance. If there are multiple Excel sessions open with the same main window title, this may have difficulties.
+
