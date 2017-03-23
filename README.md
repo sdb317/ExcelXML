@@ -47,7 +47,16 @@ End Sub
 
 A log file is created in %localappdata%/Temp with the name ExcelXML_<PID>.log. Also errors can be retrieved in VBA by using `GetLastErrorMessage()`.
 
-There are self-explanatory options that can be set to true or false (default):
+The full api consists of:
+
+```
+WorkbookToDocument // Takes all worksheets' used ranges in an Excel workbook and writes them to an XML document
+WorksheetToDocument // Takes a worksheet's used range in an Excel spreadsheet and writes it to an XML document
+RangeToDocument // Takes a range in an Excel workbook and writes it to a node in an XML document
+DocumentToRange // Reads a node in an XML document and writes it to a range in an Excel workbook
+```
+
+There are also some self-explanatory options that can be set to true or false (default):
 
 ```
 IncludeErrorValues=false; // Otherwise ommitted
